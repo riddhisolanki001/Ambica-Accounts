@@ -1,0 +1,38 @@
+[
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2023-10-30 18:39:55.074952",
+  "module": "Ambika Accounts",
+  "name": "NEFT RTGS",
+  "prepared_report": 0,
+  "query": "select \n\"N\" as \"Transaction Type\",\n\nNULL as \"Blank\",\n\nnr.party_bank_account as \"Beneficiary Account Number\",\n\nnr.paid_amount as \"Instrument Amount\",\n\nnr.party_name as \"Beneficiary Name\",\n\nNULL as \"Blank\",\n\nNULL as \"Blank\",\n\nNULL as \"Beneficiary Address 1\",\nNULL as \"Beneficiary Address 2\",\nNULL as \"Beneficiary Address 3\",\nNULL as \"Beneficiary Address 4\",\nNULL as \"Beneficiary Address 5\",\n\nNULL as \"Instruction Reference Number\",\n\nNULL as \"Customer Reference Number\",\n\nNULL as \"Payment Details 1\",\n\nNULL as \"Payment Details 2\",\nNULL as \"Payment Details 3\",\nNULL as \"Payment Details 4\",\nNULL as \"Payment Details 5\",\nNULL as \"Payment Details 6\",\nNULL as \"Payment Details 7\",\n\nNULL as \"Blank\",\n\nnr.posting_date as \"Transaction Date\",\n\nNULL as \"Blank\",\n\nNULL as \"IFSC Code\",\n\nNULL as \"Bank Name\",\n\nNULL as \"Branch Name\",\n \nNULL as \"Email ID\"\n\nfrom `tabPayment Entry` nr where nr.neft_rtgs != \"Fund Transfer\" AND docstatus != 2  AND  docstatus != 0 \n",
+  "ref_doctype": "Payment Entry",
+  "reference_report": null,
+  "report_name": "NEFT RTGS",
+  "report_script": null,
+  "report_type": "Query Report",
+  "roles": [
+   {
+    "parent": "NEFT RTGS",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "NEFT RTGS",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   }
+  ]
+ }
+]

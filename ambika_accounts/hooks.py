@@ -219,3 +219,16 @@ app_license = "mit"
 # auth_hooks = [
 #	"ambika_accounts.auth.validate"
 # ]
+
+fixtures=[
+    
+    {"dt":"Report","filters":[
+        [
+            "module","in",[
+               "Ambika Accounts"
+            ]
+        ]
+    ]},
+    
+        
+]
