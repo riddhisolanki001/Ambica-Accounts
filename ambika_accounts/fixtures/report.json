@@ -34,5 +34,28 @@
     "role": "Accounts Manager"
    }
   ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2023-11-06 18:20:38.524079",
+  "module": "Ambika Accounts",
+  "name": "Export order in Hand",
+  "prepared_report": 0,
+  "query": "SELECT \n  po.supplier_name AS 'Name Of the Party',\n  po.name AS 'P.O.No',\n  po.transaction_date AS 'P.O.Date',\n  po.total AS 'P.O.Amount(FC)',\n  po.terms AS 'Terms',\n  po.conversion_rate AS 'Exchange Rate',\n  po.currency AS 'Currency',\n  po.base_net_total AS 'Amount Rs.'\nFROM `tabPurchase Order` po\nLEFT JOIN `tabPurchase Invoice` pi ON po.name = pi.custom_purchase_order\nWHERE po.currency != 'INR' AND pi.name IS NULL;",
+  "ref_doctype": "Purchase Order",
+  "reference_report": null,
+  "report_name": "Export order in Hand",
+  "report_script": null,
+  "report_type": "Query Report",
+  "roles": []
  }
 ]
