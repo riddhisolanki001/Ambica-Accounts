@@ -229,6 +229,13 @@ fixtures=[
             ]
         ]
     ]},
+    {"dt":"Client Script","filters":[
+        [
+            "module","in",[
+               "Ambika Accounts"
+            ]
+        ]
+    ]},
     
         
 ]
