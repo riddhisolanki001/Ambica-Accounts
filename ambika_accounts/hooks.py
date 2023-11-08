@@ -133,23 +133,23 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-#	"all": [
-#		"ambika_accounts.tasks.all"
-#	],
-#	"daily": [
-#		"ambika_accounts.tasks.daily"
-#	],
-#	"hourly": [
-#		"ambika_accounts.tasks.hourly"
-#	],
-#	"weekly": [
-#		"ambika_accounts.tasks.weekly"
-#	],
-#	"monthly": [
-#		"ambika_accounts.tasks.monthly"
-#	],
-# }
+scheduler_events = {
+	# "all": [
+	# 	"ambika_accounts.tasks.all"
+	# ],
+	"daily": [
+		"ambika_accounts.tasks.daily"
+	],
+	"hourly": [
+		"ambika_accounts.tasks.hourly"
+	],
+	# "weekly": [
+	# 	"ambika_accounts.tasks.weekly"
+	# ],
+	# "monthly": [
+	# 	"ambika_accounts.tasks.monthly"
+	# ],
+}
 
 # Testing
 # -------
@@ -223,6 +223,14 @@ app_license = "mit"
 fixtures=[
     
     {"dt":"Report","filters":[
+        [
+            "module","in",[
+               "Ambika Accounts"
+            ]
+        ]
+    ]},
+    
+    {"dt":"Property Setter","filters":[
         [
             "module","in",[
                "Ambika Accounts"
