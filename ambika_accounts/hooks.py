@@ -133,6 +133,7 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
+<<<<<<< HEAD
 scheduler_events = {
 	# "all": [
 	# 	"ambika_accounts.tasks.all"
@@ -150,6 +151,25 @@ scheduler_events = {
 	# 	"ambika_accounts.tasks.monthly"
 	# ],
 }
+=======
+# scheduler_events = {
+#	"all": [
+#		"ambika_accounts.tasks.all"
+#	],
+#	"daily": [
+#		"ambika_accounts.tasks.daily"
+#	],
+#	"hourly": [
+#		"ambika_accounts.tasks.hourly"
+#	],
+#	"weekly": [
+#		"ambika_accounts.tasks.weekly"
+#	],
+#	"monthly": [
+#		"ambika_accounts.tasks.monthly"
+#	],
+# }
+>>>>>>> aditya
 
 # Testing
 # -------
@@ -229,8 +249,12 @@ fixtures=[
             ]
         ]
     ]},
+<<<<<<< HEAD
     
     {"dt":"Property Setter","filters":[
+=======
+    {"dt":"Client Script","filters":[
+>>>>>>> aditya
         [
             "module","in",[
                "Ambika Accounts"
