@@ -237,6 +237,14 @@ fixtures=[
             ]
         ]
     ]},
+    {"dt":"Property Setter","filters":[
+        [
+            "module","in",[
+               "Ambika Accounts"
+            ]
+        ]
+    ]},
+    
     
         
 ]

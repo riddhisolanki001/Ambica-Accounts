@@ -1,6 +1,71 @@
 [
  {
   "add_total_row": 0,
+  "columns": [
+   {
+    "fieldname": "ratio",
+    "fieldtype": "Float",
+    "label": "Ratio",
+    "options": null,
+    "parent": "Ratio Anlysis",
+    "parentfield": "columns",
+    "parenttype": "Report",
+    "width": 0
+   }
+  ],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2023-11-02 16:25:06.711541",
+  "module": "Ambika Accounts",
+  "name": "Ratio Anlysis",
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Account",
+  "reference_report": null,
+  "report_name": "Ratio Anlysis",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Ratio Anlysis",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Ratio Anlysis",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Ratio Anlysis",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Sales User"
+   },
+   {
+    "parent": "Ratio Anlysis",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "Ratio Anlysis",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
   "columns": [],
   "disabled": 0,
   "docstatus": 0,
@@ -34,8 +99,7 @@
     "role": "Accounts Manager"
    }
   ]
-<<<<<<< HEAD
-=======
+
  },
  {
   "add_total_row": 0,
@@ -96,6 +160,7 @@
   "report_script": "",
   "report_type": "Query Report",
   "roles": []
+
  },
  {
   "add_total_row": 0,
@@ -163,6 +228,6 @@
     "role": "Purchase User"
    }
   ]
->>>>>>> aditya
+
  }
 ]
