@@ -2,6 +2,17 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
+  "dt": "Purchase Invoice",
+  "enabled": 1,
+  "modified": "2023-11-07 18:45:33.511107",
+  "module": "Ambika Accounts",
+  "name": "Payment Terms Due Date Chane in Pi",
+  "script": "frappe.ui.form.on('Purchase Invoice', {\n\tsupplier_name(frm) {\n\t    var supplier = frm.doc.supplier\n\t    frappe.db.get_list('Supplier',{\n\t        fields:['payment_terms'],\n\t        filters:{\n\t            name:supplier\n\t        }\n\t       \n\t    }).then(rec => {\n\t        for (var d in rec){\n\t            var payment_term = rec[d].payment_terms\n\t        }\n\t        console.log(payment_term)\n\t        frappe.db.get_list('Payment Terms Template',{\n\t            fields:['due_date_based_on'],\n\t            filters:{\n\t                name:payment_term\n\t            }\n\t        }).then(records => {\n\t        for (var de in records){\n\t            var based_on = records[d].due_date_based_on\n\t        }\n\t        console.log(based_on)\n\t        })\n\t        \n\t        \n\t    })\n\t\t// your code here\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
   "dt": "Payment Entry",
   "enabled": 1,
   "modified": "2023-11-08 12:26:59.119303",
