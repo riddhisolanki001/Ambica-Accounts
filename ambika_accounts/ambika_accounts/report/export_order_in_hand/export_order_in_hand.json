@@ -4,14 +4,7 @@
  "creation": "2023-11-06 18:20:38.524079",
  "disabled": 0,
  "docstatus": 0,
- "doctype": "Report",
-<<<<<<< HEAD
- "filters": [],
- "idx": 0,
- "is_standard": "Yes",
- "letterhead": null,
- "modified": "2023-11-06 18:20:38.524079",
-=======
+ "doctype": "Report", 
  "filters": [
   {
    "default": "Today",
@@ -43,22 +36,15 @@
  "is_standard": "Yes",
  "letterhead": null,
  "modified": "2023-11-07 12:44:32.146184",
->>>>>>> aditya
  "modified_by": "Administrator",
  "module": "Ambika Accounts",
  "name": "Export order in Hand",
  "owner": "Administrator",
  "prepared_report": 0,
-<<<<<<< HEAD
- "query": "SELECT \n  po.supplier_name AS 'Name Of the Party',\n  po.name AS 'P.O.No',\n  po.transaction_date AS 'P.O.Date',\n  po.total AS 'P.O.Amount(FC)',\n  po.terms AS 'Terms',\n  po.conversion_rate AS 'Exchange Rate',\n  po.currency AS 'Currency',\n  po.base_net_total AS 'Amount Rs.'\nFROM `tabPurchase Order` po\nLEFT JOIN `tabPurchase Invoice` pi ON po.name = pi.custom_purchase_order\nWHERE po.currency != 'INR' AND pi.name IS NULL;",
- "ref_doctype": "Purchase Order",
- "report_name": "Export order in Hand",
-=======
  "query": "SELECT \n  po.supplier_name AS 'Name Of the Party',\n  po.name AS 'P.O.No',\n  po.transaction_date AS 'P.O.Date',\n  po.total AS 'P.O.Amount(FC)',\n  po.terms AS 'Terms',\n  po.conversion_rate AS 'Exchange Rate',\n  po.currency AS 'Currency',\n  po.base_net_total AS 'Amount Rs.'\nFROM `tabPurchase Order` po\nLEFT JOIN `tabPurchase Invoice` pi ON po.name = pi.custom_purchase_order\nWHERE po.currency != 'INR' \n  AND pi.name IS NULL\n  AND (\n    (%(from_date)s IS NULL AND %(to_date)s IS NULL) \n    OR (po.transaction_date BETWEEN %(from_date)s AND %(to_date)s)  \n  )\n  AND po.company = %(company)s\n;\n",
  "ref_doctype": "Purchase Order",
  "report_name": "Export order in Hand",
  "report_script": "",
->>>>>>> aditya
  "report_type": "Query Report",
  "roles": []
 }
