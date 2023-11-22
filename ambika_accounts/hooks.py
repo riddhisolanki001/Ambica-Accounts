@@ -244,6 +244,14 @@ fixtures=[
             ]
         ]
     ]},
+    {"dt":"Server Script","filters":[
+        [
+            "module","in",[
+               "Ambika Accounts"
+            ]
+        ]
+    ]},
+    
     
     
         
