@@ -262,5 +262,59 @@
     "role": "Purchase User"
    }
   ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": "frappe.query_reports['Entry Reports'] = {\n    filters: [\n        {\n            fieldname: \"from_date\",\n            label: \"From Date\",\n            fieldtype: \"Date\",\n        },\n        {\n            fieldname: \"to_date\",\n            label: \"To Date\",\n            fieldtype: \"Date\",\n        },\n        {\n            fieldname: \"status\",\n            label: \"status\",\n            fieldtype: \"Data\",\n        }\n    ]\n};\n",
+  "json": null,
+  "letter_head": null,
+  "modified": "2023-11-27 13:06:14.573398",
+  "module": "Ambika Accounts",
+  "name": "Entry Reports",
+  "prepared_report": 0,
+  "query": "columns = [\n    {\n        'fieldname': 'today_date',\n        'label': _('Date'),\n        'fieldtype': 'Data',\n        'options': '',\n        'width': 300\n    },\n    {\n        'fieldname': 'document_type',\n        'label': _('Order'),\n        'fieldtype': 'Data',\n        'options': '',\n        'width': 300\n    },\n    {\n        'fieldname': 'creation_count',\n        'label': _('Number'),\n        'fieldtype': 'Data',\n        'options': '',\n        'width': 300\n    }\n    \n    \n]\n\nfilter_values = ()  # Initialize the filter_values tuple\n\nif filters.get('from_date') and filters.get('to_date'):\n    mysql = \"\"\"\n        SELECT 'Sales Order' AS document_type, transaction_date AS today_date, COUNT(name) AS creation_count\n        FROM `tabSales Order`\n        WHERE DATE(transaction_date) BETWEEN %s AND %s\n        UNION ALL\n        SELECT 'Sales Invoice' AS document_type, posting_date AS today_date, COUNT(name) AS creation_count\n        FROM `tabSales Invoice`\n        WHERE DATE(posting_date) BETWEEN %s AND %s\n        UNION ALL\n        SELECT 'Purchase Invoice' AS document_type, posting_date AS today_date, COUNT(name) AS creation_count\n        FROM `tabPurchase Invoice`\n        WHERE DATE(posting_date) BETWEEN %s AND %s\n        UNION ALL\n        SELECT 'Purchase Order' AS document_type, transaction_date AS today_date, COUNT(name) AS creation_count\n        FROM `tabPurchase Order`\n        WHERE DATE(transaction_date) BETWEEN %s AND %s\n    \"\"\"\n\n    filter_values = (\n        filters.get('from_date'),  # From Date\n        filters.get('to_date'),    # To Date\n        filters.get('from_date'),  # From Date (Sales Invoice)\n        filters.get('to_date'),    # To Date (Sales Invoice)\n        filters.get('from_date'),  # From Date (Purchase Invoice)\n        filters.get('to_date'),    # To Date (Purchase Invoice)\n        filters.get('from_date'),  # From Date (Purchase Order)\n        filters.get('to_date'),    # To Date (Purchase Order)\n    )\n\nelse:\n    mysql = \"\"\"\n       SELECT 'Sales Order' AS document_type, CURDATE() AS today_date, COUNT(name) AS creation_count\n        FROM `tabSales Order`\n        WHERE DATE(transaction_date) = CURDATE()\n        UNION ALL\n        SELECT 'Sales Invoice' AS document_type, CURDATE() AS today_date, COUNT(name) AS creation_count\n        FROM `tabSales Invoice`\n        WHERE DATE(posting_date) = CURDATE()\n        UNION ALL\n        SELECT 'Purchase Invoice' AS document_type, CURDATE() AS today_date, COUNT(name) AS creation_count\n        FROM `tabPurchase Invoice`\n        WHERE DATE(posting_date) = CURDATE()\n        UNION ALL\n        SELECT 'Purchase Order' AS document_type, CURDATE() AS today_date, COUNT(name) AS creation_count\n        FROM `tabPurchase Order`\n        WHERE DATE(transaction_date) = CURDATE()\n    \"\"\"\n\n# Execute the SQL query with the filter values\nmydata = frappe.db.sql(mysql, filter_values, as_dict=True)\n\ndata = (columns, mydata, \"entry reports\", None, None)\n",
+  "ref_doctype": "Sales Order",
+  "reference_report": null,
+  "report_name": "Entry Reports",
+  "report_script": "columns = [\n    {\n        'fieldname': 'today_date',\n        'label': _('Date'),\n        'fieldtype': 'Data',\n        'options': '',\n        'width': 300\n    },\n    {\n        'fieldname': 'document_type',\n        'label': _('Order'),\n        'fieldtype': 'Data',\n        'options': '',\n        'width': 300\n    },\n    {\n        'fieldname': 'creation_count',\n        'label': _('Number'),\n        'fieldtype': 'Data',\n        'options': '',\n        'width': 300\n    },{\n        'fieldname': 'status',\n        'label': _('Status'),\n        'fieldtype': 'Data',\n        'options': '',\n        'width': 300\n    }\n    \n    \n]\n\nfilter_values = ()  # Initialize the filter_values tuple\n\nif filters.get('from_date') and filters.get('to_date'):\n    mysql = \"\"\"\n        SELECT 'Sales Order' AS document_type, transaction_date AS today_date, COUNT(name) AS creation_count,status\n        FROM `tabSales Order`\n        WHERE DATE(transaction_date) BETWEEN %s AND %s\n        UNION ALL\n        SELECT 'Sales Invoice' AS document_type, posting_date AS today_date, COUNT(name) AS creation_count,status\n        FROM `tabSales Invoice`\n        WHERE DATE(posting_date) BETWEEN %s AND %s\n        UNION ALL\n        SELECT 'Purchase Invoice' AS document_type, posting_date AS today_date, COUNT(name) AS creation_count,status\n        FROM `tabPurchase Invoice`\n        WHERE DATE(posting_date) BETWEEN %s AND %s\n        UNION ALL\n        SELECT 'Purchase Order' AS document_type, transaction_date AS today_date, COUNT(name) AS creation_count,status\n        FROM `tabPurchase Order`\n        WHERE DATE(transaction_date) BETWEEN %s AND %s\n    \"\"\"\n\n    filter_values = (\n        filters.get('from_date'),  # From Date\n        filters.get('to_date'),    # To Date\n        filters.get('from_date'),  # From Date (Sales Invoice)\n        filters.get('to_date'),    # To Date (Sales Invoice)\n        filters.get('from_date'),  # From Date (Purchase Invoice)\n        filters.get('to_date'),    # To Date (Purchase Invoice)\n        filters.get('from_date'),  # From Date (Purchase Order)\n        filters.get('to_date'),    # To Date (Purchase Order)\n    )\n\nelse:\n    mysql = \"\"\"\n       SELECT 'Sales Order' AS document_type, CURDATE() AS today_date, COUNT(name) AS creation_count,status\n        FROM `tabSales Order`\n        WHERE DATE(transaction_date) = CURDATE()\n        UNION ALL\n        SELECT 'Sales Invoice' AS document_type, CURDATE() AS today_date, COUNT(name) AS creation_count,status\n        FROM `tabSales Invoice`\n        WHERE DATE(posting_date) = CURDATE()\n        UNION ALL\n        SELECT 'Purchase Invoice' AS document_type, CURDATE() AS today_date, COUNT(name) AS creation_count,status\n        FROM `tabPurchase Invoice`\n        WHERE DATE(posting_date) = CURDATE()\n        UNION ALL\n        SELECT 'Purchase Order' AS document_type, CURDATE() AS today_date, COUNT(name) AS creation_count,status\n        FROM `tabPurchase Order`\n        WHERE DATE(transaction_date) = CURDATE()\n    \"\"\"\n\n# Execute the SQL query with the filter values\nmydata = frappe.db.sql(mysql, filter_values, as_dict=True)\n\ndata = (columns, mydata, \"entry reports\", None, None)\n",
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Entry Reports",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Sales User"
+   },
+   {
+    "parent": "Entry Reports",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Sales Manager"
+   },
+   {
+    "parent": "Entry Reports",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Maintenance User"
+   },
+   {
+    "parent": "Entry Reports",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Entry Reports",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Stock User"
+   }
+  ]
  }
 ]
