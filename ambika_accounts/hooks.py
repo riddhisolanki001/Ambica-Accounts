@@ -251,6 +251,13 @@ fixtures=[
             ]
         ]
     ]},
+    {"dt":"Custom Field","filters":[
+        [
+            "module","in",[
+               "Ambika Accounts"
+            ]
+        ]
+    ]},
     
     
     

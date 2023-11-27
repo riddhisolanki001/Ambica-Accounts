@@ -1,0 +1,266 @@
+[
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2023-11-16 12:29:07.767713",
+  "module": "Ambika Accounts",
+  "name": "Party wise sales comparison",
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Sales Invoice",
+  "reference_report": null,
+  "report_name": "Party wise sales comparison",
+  "report_script": "# Define columns for the combined report\ncombined_columns = [\n    {\n        'fieldname': 'customer_name',\n        'label': _('Customer Name'),\n        'fieldtype': 'Data',\n        'width': 150\n    },\n    {\n        'fieldname': 'total_sales_amount',\n        'label': _('Total Billing'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n    {\n        'fieldname': 'quantity_difference',\n        'label': _('Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'amount_difference',\n        'label': _('Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n     {\n        'fieldname': 'jan_qty_diff',\n        'label': _('January Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'jan_amount_diff',\n        'label': _('January Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n    {\n        'fieldname': 'feb_qty_diff',\n        'label': _('February Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'feb_amount_diff',\n        'label': _('February Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n     {\n        'fieldname': 'march_qty_diff',\n        'label': _('March Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'march_amount_diff',\n        'label': _('March Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n     {\n        'fieldname': 'april_qty_diff',\n        'label': _('April Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'april_amount_diff',\n        'label': _('April Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n     {\n        'fieldname': 'may_qty_diff',\n        'label': _('May Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'may_amount_diff',\n        'label': _('May Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n    {\n        'fieldname': 'june_qty_diff',\n        'label': _('June Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'june_amount_diff',\n        'label': _('June Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n    {\n        'fieldname': 'july_qty_diff',\n        'label': _('July Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'july_amount_diff',\n        'label': _('July Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n    {\n        'fieldname': 'august_qty_diff',\n        'label': _('August Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'august_amount_diff',\n        'label': _('August Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n    {\n        'fieldname': 'september_qty_diff',\n        'label': _('September Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'september_amount_diff',\n        'label': _('September Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n    {\n        'fieldname': 'octomber_qty_diff',\n        'label': _('Octomber Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'octomber_amount_diff',\n        'label': _('Octomber Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n    {\n        'fieldname': 'november_qty_diff',\n        'label': _('November Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'november_amount_diff',\n        'label': _('November Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n    {\n        'fieldname': 'december_qty_diff',\n        'label': _('December Quantity Difference'),\n        'fieldtype': 'Float',\n        'width': 150\n    },\n    {\n        'fieldname': 'december_amount_diff',\n        'label': _('December Billing Difference'),\n        'fieldtype': 'Currency',\n        'width': 150\n    },\n    # Add similar columns for other months...\n]\n\n# Define filter values\ncombined_filters = {\n    'from_date': '2023-01-01',\n    'to_date': '2023-12-31'\n}\n\ncombined_mysql = \"\"\"\nSELECT\n    customer_name,\n    MAX(CASE WHEN invoice_month = 1 THEN quantity_difference END) AS jan_qty_diff,\n    MAX(CASE WHEN invoice_month = 1 THEN amount_difference END) AS jan_amount_diff,\n    MAX(CASE WHEN invoice_month = 2 THEN quantity_difference END) AS feb_qty_diff,\n    MAX(CASE WHEN invoice_month = 2 THEN amount_difference END) AS feb_amount_diff,\n    MAX(CASE WHEN invoice_month = 3 THEN quantity_difference END) AS march_qty_diff,\n    MAX(CASE WHEN invoice_month = 3 THEN amount_difference END) AS march_amount_diff,\n    MAX(CASE WHEN invoice_month = 4 THEN quantity_difference END) AS april_qty_diff,\n    MAX(CASE WHEN invoice_month = 4 THEN amount_difference END) AS april_amount_diff,\n    MAX(CASE WHEN invoice_month = 5 THEN quantity_difference END) AS may_qty_diff,\n    MAX(CASE WHEN invoice_month = 5 THEN amount_difference END) AS may_amount_diff,\n    MAX(CASE WHEN invoice_month = 6 THEN quantity_difference END) AS june_qty_diff,\n    MAX(CASE WHEN invoice_month = 6 THEN amount_difference END) AS june_amount_diff,\n    MAX(CASE WHEN invoice_month = 7 THEN quantity_difference END) AS july_qty_diff,\n    MAX(CASE WHEN invoice_month = 7 THEN amount_difference END) AS july_amount_diff,\n    MAX(CASE WHEN invoice_month = 8 THEN quantity_difference END) AS august_qty_diff,\n    MAX(CASE WHEN invoice_month = 8 THEN amount_difference END) AS august_amount_diff,\n    MAX(CASE WHEN invoice_month = 9 THEN quantity_difference END) AS september_qty_diff,\n    MAX(CASE WHEN invoice_month = 9 THEN amount_difference END) AS september_amount_diff,\n    MAX(CASE WHEN invoice_month = 10 THEN quantity_difference END) AS octomber_qty_diff,\n    MAX(CASE WHEN invoice_month = 10 THEN amount_difference END) AS octomber_amount_diff,\n    MAX(CASE WHEN invoice_month = 11 THEN quantity_difference END) AS november_qty_diff,\n    MAX(CASE WHEN invoice_month = 11 THEN amount_difference END) AS november_amount_diff,\n    MAX(CASE WHEN invoice_month = 12 THEN quantity_difference END) AS december_qty_diff,\n    MAX(CASE WHEN invoice_month = 12 THEN amount_difference END) AS december_amount_diff,\n  \n    MAX(total_sales_amount) AS total_sales_amount,\n    MAX(quantity_difference) AS quantity_difference,\n    MAX(amount_difference) AS amount_difference\nFROM (\n    SELECT\n        si.customer_name,\n        MONTH(si.posting_date) AS invoice_month,\n        SUM(sii.amount) AS total_sales_amount,\n        sii.uom,\n        SUM(sii.qty) AS qty,\n        SUM(sii.qty) - LAG(SUM(sii.qty)) OVER (PARTITION BY si.customer_name, sii.uom ORDER BY MONTH(si.posting_date)) AS quantity_difference,\n        SUM(sii.amount) - LAG(SUM(sii.amount)) OVER (PARTITION BY si.customer_name, sii.uom ORDER BY MONTH(si.posting_date)) AS amount_difference,\n        SUM(sii.qty) - LAG(SUM(sii.qty)) OVER (PARTITION BY si.customer_name, sii.uom ORDER BY MONTH(si.posting_date)) AS qty_diff,\n        SUM(sii.amount) - LAG(SUM(sii.amount)) OVER (PARTITION BY si.customer_name, sii.uom ORDER BY MONTH(si.posting_date)) AS amount_diff\n    FROM\n        `tabSales Invoice` si\n        INNER JOIN `tabSales Invoice Item` sii ON si.name = sii.parent\n    WHERE\n        si.posting_date BETWEEN %(from_date)s AND %(to_date)s\n    GROUP BY\n        si.customer_name, invoice_month, sii.uom\n) AS subquery\nGROUP BY\n    customer_name;\n\"\"\"\n\ncombined_data = frappe.db.sql(combined_mysql, combined_filters, as_dict=True)\n\n# Set the combined report data\ndata = (combined_columns, combined_data, \"CombinedReport\", None, None)",
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Party wise sales comparison",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Party wise sales comparison",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [
+   {
+    "fieldname": "ratio",
+    "fieldtype": "Float",
+    "label": "Ratio",
+    "options": null,
+    "parent": "Ratio Anlysis",
+    "parentfield": "columns",
+    "parenttype": "Report",
+    "width": 0
+   }
+  ],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2023-11-02 16:25:06.711541",
+  "module": "Ambika Accounts",
+  "name": "Ratio Anlysis",
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Account",
+  "reference_report": null,
+  "report_name": "Ratio Anlysis",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Ratio Anlysis",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Ratio Anlysis",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Ratio Anlysis",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Sales User"
+   },
+   {
+    "parent": "Ratio Anlysis",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "Ratio Anlysis",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2023-10-30 18:39:55.074952",
+  "module": "Ambika Accounts",
+  "name": "NEFT RTGS",
+  "prepared_report": 0,
+  "query": "select \n\"N\" as \"Transaction Type\",\n\nNULL as \"Blank\",\n\nnr.party_bank_account as \"Beneficiary Account Number\",\n\nnr.paid_amount as \"Instrument Amount\",\n\nnr.party_name as \"Beneficiary Name\",\n\nNULL as \"Blank\",\n\nNULL as \"Blank\",\n\nNULL as \"Beneficiary Address 1\",\nNULL as \"Beneficiary Address 2\",\nNULL as \"Beneficiary Address 3\",\nNULL as \"Beneficiary Address 4\",\nNULL as \"Beneficiary Address 5\",\n\nNULL as \"Instruction Reference Number\",\n\nNULL as \"Customer Reference Number\",\n\nNULL as \"Payment Details 1\",\n\nNULL as \"Payment Details 2\",\nNULL as \"Payment Details 3\",\nNULL as \"Payment Details 4\",\nNULL as \"Payment Details 5\",\nNULL as \"Payment Details 6\",\nNULL as \"Payment Details 7\",\n\nNULL as \"Blank\",\n\nnr.posting_date as \"Transaction Date\",\n\nNULL as \"Blank\",\n\nNULL as \"IFSC Code\",\n\nNULL as \"Bank Name\",\n\nNULL as \"Branch Name\",\n \nNULL as \"Email ID\"\n\nfrom `tabPayment Entry` nr where nr.neft_rtgs != \"Fund Transfer\" AND docstatus != 2  AND  docstatus != 0 \n",
+  "ref_doctype": "Payment Entry",
+  "reference_report": null,
+  "report_name": "NEFT RTGS",
+  "report_script": null,
+  "report_type": "Query Report",
+  "roles": [
+   {
+    "parent": "NEFT RTGS",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "NEFT RTGS",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [
+   {
+    "default": "Today",
+    "fieldname": "from_date",
+    "fieldtype": "Date",
+    "label": "From Date",
+    "mandatory": 0,
+    "options": null,
+    "parent": "Export order in Hand",
+    "parentfield": "filters",
+    "parenttype": "Report",
+    "wildcard_filter": 0
+   },
+   {
+    "default": "Today",
+    "fieldname": "to_date",
+    "fieldtype": "Date",
+    "label": "To Date",
+    "mandatory": 0,
+    "options": null,
+    "parent": "Export order in Hand",
+    "parentfield": "filters",
+    "parenttype": "Report",
+    "wildcard_filter": 0
+   },
+   {
+    "default": "sanskar",
+    "fieldname": "company",
+    "fieldtype": "Link",
+    "label": "Company",
+    "mandatory": 0,
+    "options": "Company",
+    "parent": "Export order in Hand",
+    "parentfield": "filters",
+    "parenttype": "Report",
+    "wildcard_filter": 0
+   }
+  ],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2023-11-07 12:44:32.146184",
+  "module": "Ambika Accounts",
+  "name": "Export order in Hand",
+  "prepared_report": 0,
+  "query": "SELECT \n  po.supplier_name AS 'Name Of the Party',\n  po.name AS 'P.O.No',\n  po.transaction_date AS 'P.O.Date',\n  po.total AS 'P.O.Amount(FC)',\n  po.terms AS 'Terms',\n  po.conversion_rate AS 'Exchange Rate',\n  po.currency AS 'Currency',\n  po.base_net_total AS 'Amount Rs.'\nFROM `tabPurchase Order` po\nLEFT JOIN `tabPurchase Invoice` pi ON po.name = pi.custom_purchase_order\nWHERE po.currency != 'INR' \n  AND pi.name IS NULL\n  AND (\n    (%(from_date)s IS NULL AND %(to_date)s IS NULL) \n    OR (po.transaction_date BETWEEN %(from_date)s AND %(to_date)s)  \n  )\n  AND po.company = %(company)s\n;\n",
+  "ref_doctype": "Purchase Order",
+  "reference_report": null,
+  "report_name": "Export order in Hand",
+  "report_script": "",
+  "report_type": "Query Report",
+  "roles": []
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [
+   {
+    "default": null,
+    "fieldname": "from_date",
+    "fieldtype": "Date",
+    "label": "From Date",
+    "mandatory": 0,
+    "options": null,
+    "parent": "Export order in Hand2",
+    "parentfield": "filters",
+    "parenttype": "Report",
+    "wildcard_filter": 0
+   },
+   {
+    "default": null,
+    "fieldname": "To_date",
+    "fieldtype": "Date",
+    "label": "To Date",
+    "mandatory": 0,
+    "options": null,
+    "parent": "Export order in Hand2",
+    "parentfield": "filters",
+    "parenttype": "Report",
+    "wildcard_filter": 0
+   }
+  ],
+  "is_standard": "No",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2023-11-07 12:21:57.982337",
+  "module": "Ambika Accounts",
+  "name": "Export order in Hand2",
+  "prepared_report": 0,
+  "query": "SELECT \n  po.supplier_name AS 'Name Of the Party',\n  po.name AS 'P.O.No',\n  po.transaction_date AS 'P.O.Date',\n  po.total AS 'P.O.Amount(FC)',\n  po.terms AS 'Terms',\n  po.conversion_rate AS 'Exchange Rate',\n  po.currency AS 'Currency',\n  po.base_net_total AS 'Amount Rs.'\nFROM `tabPurchase Order` po\nLEFT JOIN `tabPurchase Invoice` pi ON po.name = pi.custom_purchase_order\nWHERE po.currency != 'INR' \n  AND pi.name IS NULL\n  AND (\n    (%(from_date)s IS NULL AND %(to_date)s IS NULL) \n    OR (po.transaction_date BETWEEN %(from_date)s AND %(to_date)s)  \n  );\n",
+  "ref_doctype": "Purchase Order",
+  "reference_report": null,
+  "report_name": "Export order in Hand2",
+  "report_script": "frappe.query_reports['new report'] = {\n  filters: [\n    {\n      fieldname: \"name\",\n      label: \"Sales Order ID\",\n      fieldtype: \"Link\",\n      options: \"Sales Order\"\n    },\n     {\n      fieldname: \"from_date\",\n      label: \"From Date\",\n      fieldtype: \"Date\",\n    },\n     {\n      fieldname: \"to_date\",\n      label: \"To Date\",\n      fieldtype: \"Date\",\n    }\n   \n  ]\n};",
+  "report_type": "Query Report",
+  "roles": [
+   {
+    "parent": "Export order in Hand2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Stock User"
+   },
+   {
+    "parent": "Export order in Hand2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase Manager"
+   },
+   {
+    "parent": "Export order in Hand2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   }
+  ]
+ }
+]
