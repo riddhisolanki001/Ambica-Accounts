@@ -48,14 +48,14 @@ def cheque_number():
     x = last_payment_record.reference_no
     print(x)
 
-    new_last_no = None  # Define new_last_no outside the if-else block
+    new_last_no = None 
 
     if last_cheque_record.last_no == str(x):
         frappe.msgprint(f"Last Payment Record: {str(last_cheque_record.reference_no)}")
         
     else:
         frappe.msgprint(f"Last Payment Record: {str(last_payment_record)}")
-        # new_last_no = int(last_payment_record.reference_no) + 1
+        new_last_no = int(last_payment_record.reference_no) + 1
         frappe.msgprint(f"New Last Number: {new_last_no}")
 
     return new_last_no
