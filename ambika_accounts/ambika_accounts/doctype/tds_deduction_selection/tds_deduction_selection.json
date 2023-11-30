@@ -9,6 +9,7 @@
  "field_order": [
   "from_date",
   "category",
+  "category_name",
   "column_break_bsdq",
   "to_date",
   "retrive",
@@ -38,13 +39,15 @@
   },
   {
    "fieldname": "category",
-   "fieldtype": "Date",
-   "label": "Category"
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Tax Withholding Category"
   },
   {
    "fieldname": "retrive",
    "fieldtype": "Button",
-   "label": "Retrive"
+   "label": "Retrive",
+   "options": "tds_account"
   },
   {
    "fieldname": "total_base_amount",
@@ -108,12 +111,18 @@
    "fieldname": "section_break_gnlq",
    "fieldtype": "Section Break",
    "label": "TDS Reference"
+  },
+  {
+   "fetch_from": "category.category_name",
+   "fieldname": "category_name",
+   "fieldtype": "Data",
+   "label": "category_name"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-11-28 16:59:55.206502",
+ "modified": "2023-11-29 18:22:24.773750",
  "modified_by": "Administrator",
  "module": "Ambika Accounts",
  "name": "TDS deduction selection",
