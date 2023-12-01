@@ -113,6 +113,10 @@ def tds_account(category,category_name):
       fields=['credit_to','name',]
     )
     print(get_account_second_category)
+    get_account_name_second= [account_info.get("credit_to") for account_info in get_account_second_category]
+    get_name_second= [account_info.get("name") for account_info in get_account_second_category]
+    print(get_account_name_second)
+    print(get_name_second)
     
     get_account_first_category = frappe.get_all(
       "Purchase Invoice",
@@ -122,8 +126,10 @@ def tds_account(category,category_name):
       },
       fields=['credit_to','name',]
     )
-    get_account_name_second= [account_info.get("credit_to") for account_info in get_account_first_category]
-    print(get_account_name_second)
+    get_account_name_first= [account_info.get("credit_to") for account_info in get_account_first_category]
+    get_name_first= [account_info.get("name") for account_info in get_account_first_category]
+    print(get_account_name_first)
+    print(get_name_first)
     
     
     
