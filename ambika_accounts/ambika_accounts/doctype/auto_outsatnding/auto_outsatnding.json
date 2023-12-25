@@ -17,7 +17,8 @@
   "get_invoices",
   "column_break_b9pf",
   "msme",
-  "section_break_qxps"
+  "section_break_qxps",
+  "out"
  ],
  "fields": [
   {
@@ -79,12 +80,17 @@
   {
    "fieldname": "section_break_qxps",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "out",
+   "fieldtype": "Table",
+   "options": "Outstanding Child"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-12-25 13:58:22.994634",
+ "modified": "2023-12-25 14:27:43.615293",
  "modified_by": "Administrator",
  "module": "Ambika Accounts",
  "name": "Auto Outsatnding",
