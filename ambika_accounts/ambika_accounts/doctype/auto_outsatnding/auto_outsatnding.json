@@ -1,29 +1,34 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2023-12-25 12:52:31.196461",
+ "creation": "2023-12-25 13:44:56.175599",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "bank_account",
-  "column_break_h5ho",
+  "section_break_htvm",
+  "party_name",
+  "column_break_af8r",
   "due_date",
-  "column_break_iexn",
+  "column_break_s8h8",
   "payment_date",
-  "section_break_fs0z",
-  "get_invoice",
-  "column_break_8qhk",
+  "section_break_znip",
   "not_due",
-  "column_break_1jlr",
+  "column_break_lvsz",
+  "get_invoices",
+  "column_break_b9pf",
   "msme",
-  "column_break_m2t3"
+  "section_break_qxps"
  ],
  "fields": [
   {
-   "fieldname": "bank_account",
+   "fieldname": "section_break_htvm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "party_name",
    "fieldtype": "Link",
-   "label": "Bank Account",
-   "options": "Account"
+   "label": "Party Name",
+   "options": "Supplier"
   },
   {
    "fieldname": "due_date",
@@ -36,62 +41,61 @@
    "label": "Payment Date"
   },
   {
+   "fieldname": "not_due",
+   "fieldtype": "Button",
+   "label": "Not Due"
+  },
+  {
+   "fieldname": "get_invoices",
+   "fieldtype": "Button",
+   "label": "Get Invoices"
+  },
+  {
    "default": "0",
    "fieldname": "msme",
    "fieldtype": "Check",
    "label": "MSME"
   },
   {
-   "fieldname": "not_due",
-   "fieldtype": "Button",
-   "label": "Not Due"
-  },
-  {
-   "fieldname": "get_invoice",
-   "fieldtype": "Button",
-   "label": "Get Invoice"
-  },
-  {
-   "fieldname": "column_break_8qhk",
+   "fieldname": "column_break_af8r",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_1jlr",
+   "fieldname": "column_break_s8h8",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_iexn",
+   "fieldname": "column_break_lvsz",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_h5ho",
+   "fieldname": "column_break_b9pf",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "section_break_fs0z",
+   "fieldname": "section_break_znip",
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "column_break_m2t3",
+   "fieldname": "section_break_qxps",
    "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
+ "issingle": 1,
  "links": [],
- "modified": "2023-12-25 13:29:06.445002",
+ "modified": "2023-12-25 13:58:22.994634",
  "modified_by": "Administrator",
  "module": "Ambika Accounts",
- "name": "Auto Outstannding Adjustment",
+ "name": "Auto Outsatnding",
  "owner": "Administrator",
  "permissions": [
   {
    "create": 1,
    "delete": 1,
    "email": 1,
-   "export": 1,
    "print": 1,
    "read": 1,
-   "report": 1,
    "role": "System Manager",
    "share": 1,
    "write": 1

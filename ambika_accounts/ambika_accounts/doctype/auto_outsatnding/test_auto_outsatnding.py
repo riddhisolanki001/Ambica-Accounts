@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestAutoOutstanndingAdjustment(FrappeTestCase):
+class TestAutoOutsatnding(FrappeTestCase):
 	pass

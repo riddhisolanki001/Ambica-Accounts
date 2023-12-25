@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class AutoOutstanndingAdjustment(Document):
+class AutoOutsatnding(Document):
 	pass
