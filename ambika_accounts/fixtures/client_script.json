@@ -114,7 +114,7 @@
   "doctype": "Client Script",
   "dt": "Bill Purchase",
   "enabled": 1,
-  "modified": "2023-12-25 14:59:00.671177",
+  "modified": "2023-12-25 15:09:48.323611",
   "module": "Ambika Accounts",
   "name": "Bill Purchase",
   "script": "frappe.ui.form.on('Bill Purchase', {\n\trefresh(frm) {\n\t    frm.add_custom_button(__('Export Invoice'), function() { })\n\t\t// your code here\n\t}\n})",
