@@ -108,5 +108,71 @@
   "name": "Auto Outstanding",
   "script": "frappe.ui.form.on('Auto Outstanding', {\n\trefresh(frm) {\n\t   \n    set_css(frm)\t\n    \n\n\t}\n})\n\nfrappe.ui.form.on('Outstanding Child', {\n\toutstandings_add:function(frm) {\n\t     frm.add_custom_button(__('Payment'), function() {\n\t         \n\t     }).css({\"color\":\"blue\"});\n\t     \n\t     frm.add_custom_button(__('Export Unadjusted'), function() {\n\t         \n\t     })\n\t\t// your code here\n\t}\n})\n\nfunction set_css(frm){\n    console.log(\"hello\");\n\tdocument.querySelectorAll(\"[data-fieldname = 'get_invoices']\")[1].style.backgroundColor = 'black';\n    document.querySelectorAll(\"[data-fieldname = 'get_invoices']\")[1].style.marginTop = '5px    ';\n\tdocument.querySelectorAll(\"[data-fieldname = 'get_invoices']\")[1].style.color = 'white';\n\t\n\t\n\tdocument.querySelectorAll(\"[data-fieldname = 'not_due']\")[1].style.backgroundColor = 'black';\n    document.querySelectorAll(\"[data-fieldname = 'not_due']\")[1].style.marginTop = '5px    ';\n\tdocument.querySelectorAll(\"[data-fieldname = 'not_due']\")[1].style.color = 'white';\n\n\t\n\t\n}\n\n\n\n\n",
   "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Bill Purchase",
+  "enabled": 1,
+  "modified": "2023-12-25 14:59:00.671177",
+  "module": "Ambika Accounts",
+  "name": "Bill Purchase",
+  "script": "frappe.ui.form.on('Bill Purchase', {\n\trefresh(frm) {\n\t    frm.add_custom_button(__('Export Invoice'), function() { })\n\t\t// your code here\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Bill Purchase",
+  "enabled": 1,
+  "modified": "2023-12-25 14:59:32.535126",
+  "module": "Ambika Accounts",
+  "name": "Crystalization",
+  "script": "frappe.listview_settings['Bill Purchase'] = {\r\n    \r\n        \r\n      onload:function(listview) {\r\n          console.log('Custom script executed');\r\n\t        listview.page.add_action_item('Crystalization', () => my_action());\r\n      \r\n\t\t}\r\n\t\t\r\n\t\r\n\r\n    \r\n};\r\n\r\n",
+  "view": "List"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Payment Entry",
+  "enabled": 1,
+  "modified": "2023-12-25 15:00:04.990132",
+  "module": "Ambika Accounts",
+  "name": "Pay Recipt",
+  "script": "frappe.ui.form.on('Payment Entry', {\r\n\tonload:function(frm) {\r\n\t    console.log('script is working')\r\n\tlet d = new frappe.ui.Dialog({\r\n    title: 'Enter details',\r\n    fields: [\r\n        \r\n        {\r\n            label: 'Payment Type',\r\n            fieldname: 'payment_type',\r\n            fieldtype: 'Data'\r\n            \r\n        }\r\n    ],\r\n    size: 'small', // small, large, extra-large \r\n    primary_action_label: 'Submit',\r\n    primary_action(values) {\r\n        console.log(values);\r\n        d.hide();\r\n    }\r\n});\r\n\t    // your code here\r\n\t}\r\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Customer",
+  "enabled": 1,
+  "modified": "2023-12-25 15:00:44.365787",
+  "module": "Ambika Accounts",
+  "name": "Customer Tax Category",
+  "script": "frappe.ui.form.on('Customer', {\n    refresh(frm) {\n        var GstValue = frm.doc.gstin;\n\n        if (GstValue && GstValue.length >= 2 && GstValue.substring(0, 2) === '24') {\n            frappe.model.set_value(frm.doctype, frm.docname, 'tax_category', 'IN-State');\n        } else {\n            frappe.model.set_value(frm.doctype, frm.docname, 'tax_category', 'Out-State');\n        }\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Supplier",
+  "enabled": 1,
+  "modified": "2023-12-25 15:01:19.502142",
+  "module": "Ambika Accounts",
+  "name": "Tax Category Supplier",
+  "script": "frappe.ui.form.on('Supplier', {\n    refresh(frm) {\n        var GstValue = frm.doc.gstin;\n\n        if (GstValue && GstValue.length >= 2 && GstValue.substring(0, 2) === '24') {\n            frappe.model.set_value(frm.doctype, frm.docname, 'tax_category', 'IN-State');\n        } else {\n            frappe.model.set_value(frm.doctype, frm.docname, 'tax_category', 'Out-State');\n        }\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Payment Entry",
+  "enabled": 1,
+  "modified": "2023-12-25 15:02:31.068593",
+  "module": "Ambika Accounts",
+  "name": "Payment entry epc dialogbox",
+  "script": "frappe.ui.form.on('Payment Entry', {\n    refresh(frm) {\n        frm.add_custom_button(__('Get Items From EPC'), function() {\n            new frappe.ui.form.MultiSelectDialog({\n                doctype: \"EPC PCFC Entry\",\n                target: frm,\n                setters: {\n                    // schedule_date: null,\n                    // status: null\n                    bank_name: null,\n                    amount:null,\n                    date:null,\n                    due_date:null\n                },\n                size: 'large', \n                add_filters_group: 1,\n                date_field: \"date\",\n                // allow_child_item_selection: 1,\n                // child_fieldname: \"items\", // child table fieldname, whose records will be shown &amp; can be filtered\n                // child_columns: [\"item_code\", \"qty\"], // child item columns to be displayed\n                get_query() {\n                    return {\n                        // filters: { docstatus: ['!=', 2] }\n                    };\n                },\n                action(selections, args) {\n                    // console.log(args.filtered_children); // list of selected item names\n                }\n            });\n        });\n    }\n});\n",
+  "view": "Form"
  }
 ]
