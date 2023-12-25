@@ -1,0 +1,103 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-12-25 12:52:31.196461",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "bank_account",
+  "column_break_h5ho",
+  "due_date",
+  "column_break_iexn",
+  "payment_date",
+  "section_break_fs0z",
+  "get_invoice",
+  "column_break_8qhk",
+  "not_due",
+  "column_break_1jlr",
+  "msme",
+  "column_break_m2t3"
+ ],
+ "fields": [
+  {
+   "fieldname": "bank_account",
+   "fieldtype": "Link",
+   "label": "Bank Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "payment_date",
+   "fieldtype": "Date",
+   "label": "Payment Date"
+  },
+  {
+   "default": "0",
+   "fieldname": "msme",
+   "fieldtype": "Check",
+   "label": "MSME"
+  },
+  {
+   "fieldname": "not_due",
+   "fieldtype": "Button",
+   "label": "Not Due"
+  },
+  {
+   "fieldname": "get_invoice",
+   "fieldtype": "Button",
+   "label": "Get Invoice"
+  },
+  {
+   "fieldname": "column_break_8qhk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_1jlr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_iexn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_h5ho",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_fs0z",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_m2t3",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-12-25 13:29:06.445002",
+ "modified_by": "Administrator",
+ "module": "Ambika Accounts",
+ "name": "Auto Outstannding Adjustment",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
