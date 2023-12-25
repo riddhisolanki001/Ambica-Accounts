@@ -97,5 +97,16 @@
   "name": "Pan Number",
   "script": "frappe.ui.form.on('Supplier', {\n    refresh(frm) {\n        // Access the value of the \"pan\" field\n        var panValue = frm.doc.pan;\n\n        // Check if the pan number has at least 4 characters and the fourth character is 'p'\n        if (panValue && panValue.length >= 4 && panValue[3].toLowerCase() === 'p') {\n            // Set the value of the \"custom_sub_category_\" field to \"Propritorship\"\n            frappe.model.set_value(frm.doctype, frm.docname, 'custom_sub_category_', 'Propritorship');\n            \n            // Set the value of the \"custom_company_status\" field to \"2\"\n            frappe.model.set_value(frm.doctype, frm.docname, 'custom_company_status', '2');\n        } else {\n            // If the condition is not met, set the value to \"Other\" for \"custom_sub_category_\"\n            frappe.model.set_value(frm.doctype, frm.docname, 'custom_sub_category_', 'Other');\n            \n            // Set the value of the \"custom_company_status\" field to a default value (e.g., \"1\")\n            frappe.model.set_value(frm.doctype, frm.docname, 'custom_company_status', '1');\n        }\n\n        \n    }\n});",
   "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Auto Outstanding",
+  "enabled": 1,
+  "modified": "2023-12-25 14:38:47.210448",
+  "module": "Ambika Accounts",
+  "name": "Auto Outstanding",
+  "script": "frappe.ui.form.on('Auto Outstanding', {\n\trefresh(frm) {\n\t   \n    set_css(frm)\t\n    \n\n\t}\n})\n\nfrappe.ui.form.on('Outstanding Child', {\n\toutstandings_add:function(frm) {\n\t     frm.add_custom_button(__('Payment'), function() {\n\t         \n\t     }).css({\"color\":\"blue\"});\n\t     \n\t     frm.add_custom_button(__('Export Unadjusted'), function() {\n\t         \n\t     })\n\t\t// your code here\n\t}\n})\n\nfunction set_css(frm){\n    console.log(\"hello\");\n\tdocument.querySelectorAll(\"[data-fieldname = 'get_invoices']\")[1].style.backgroundColor = 'black';\n    document.querySelectorAll(\"[data-fieldname = 'get_invoices']\")[1].style.marginTop = '5px    ';\n\tdocument.querySelectorAll(\"[data-fieldname = 'get_invoices']\")[1].style.color = 'white';\n\t\n\t\n\tdocument.querySelectorAll(\"[data-fieldname = 'not_due']\")[1].style.backgroundColor = 'black';\n    document.querySelectorAll(\"[data-fieldname = 'not_due']\")[1].style.marginTop = '5px    ';\n\tdocument.querySelectorAll(\"[data-fieldname = 'not_due']\")[1].style.color = 'white';\n\n\t\n\t\n}\n\n\n\n\n",
+  "view": "Form"
  }
 ]

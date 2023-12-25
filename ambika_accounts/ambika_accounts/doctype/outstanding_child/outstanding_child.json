@@ -3,6 +3,7 @@
  "allow_rename": 1,
  "creation": "2023-12-25 12:59:22.424913",
  "doctype": "DocType",
+ "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "section_break_4xhk",
@@ -110,7 +111,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-12-25 13:57:45.274747",
+ "modified": "2023-12-25 14:35:18.487374",
  "modified_by": "Administrator",
  "module": "Ambika Accounts",
  "name": "Outstanding Child",

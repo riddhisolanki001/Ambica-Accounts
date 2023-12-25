@@ -18,7 +18,7 @@
   "column_break_b9pf",
   "msme",
   "section_break_qxps",
-  "out"
+  "outstandings"
  ],
  "fields": [
   {
@@ -82,7 +82,7 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "out",
+   "fieldname": "outstandings",
    "fieldtype": "Table",
    "options": "Outstanding Child"
   }
@@ -90,10 +90,10 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-12-25 14:27:43.615293",
+ "modified": "2023-12-25 14:29:46.417926",
  "modified_by": "Administrator",
  "module": "Ambika Accounts",
- "name": "Auto Outsatnding",
+ "name": "Auto Outstanding",
  "owner": "Administrator",
  "permissions": [
   {
