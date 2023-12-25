@@ -221,6 +221,7 @@ scheduler_events = {
 # ]
 
 fixtures=[
+    "Custom DocPerm",   
     
     {"dt":"Report","filters":[
         [

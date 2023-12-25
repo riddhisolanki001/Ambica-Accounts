@@ -114,10 +114,10 @@
   "doctype": "Client Script",
   "dt": "Bill Purchase",
   "enabled": 1,
-  "modified": "2023-12-25 15:09:48.323611",
+  "modified": "2023-12-25 15:28:12.541093",
   "module": "Ambika Accounts",
   "name": "Bill Purchase",
-  "script": "frappe.ui.form.on('Bill Purchase', {\n\trefresh(frm) {\n\t    frm.add_custom_button(__('Export Invoice'), function() { })\n\t\t// your code here\n\t}\n})",
+  "script": "// frappe.ui.form.on('Bill Purchase', {\n// \trefresh(frm) {\n// \t    frm.add_custom_button(__('Export Invoice'), function() { })\n// \t\t// your code here\n// \t}\n// })\n\n\nfrappe.ui.form.on('Bill Purchase', {\n    refresh(frm) {\n        frm.add_custom_button(__('Export Invoice'), function() {\n            // Fetch all Sales Invoices\n            frappe.call({\n                method: 'frappe.client.get_list',\n                args: {\n                    doctype: 'Sales Invoice',\n                    fields: ['name'],\n                    limit: 1000  // You can adjust the limit based on your requirement\n                },\n                callback: function(response) {\n                    var salesInvoices = response.message;\n\n                    // Extract options for the dropdown from the Sales Invoices\n                    var options = salesInvoices.map(invoice => invoice.name);\n\n                    // Show prompt with a dropdown\n                    frappe.prompt([\n                        {\n                            label: __(\"Select Sales Invoice\"),\n                            fieldname: \"selected_invoice\",\n                            fieldtype: \"Select\",\n                            options: options,\n                            reqd: 1\n                        }\n                    ], function(values) {\n                        var selectedInvoice = values.selected_invoice;\n                        frappe.msgprint(`You selected Sales Invoice: ${selectedInvoice}`);\n                    }, __(\"Export Invoice Dialog\"));\n                }\n            });\n        });\n    }\n});\n",
   "view": "Form"
  },
  {
