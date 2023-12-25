@@ -20,6 +20,7 @@
   "total_base_amount",
   "total_tds_amount",
   "challan_details_section",
+  "challan_date",
   "bank_code",
   "interest",
   "column_break_ievk",
@@ -117,12 +118,17 @@
    "fieldname": "category_name",
    "fieldtype": "Data",
    "label": "category_name"
+  },
+  {
+   "fieldname": "challan_date",
+   "fieldtype": "Date",
+   "label": "Challan Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-11-29 18:22:24.773750",
+ "modified": "2023-12-22 13:23:40.532797",
  "modified_by": "Administrator",
  "module": "Ambika Accounts",
  "name": "TDS deduction selection",

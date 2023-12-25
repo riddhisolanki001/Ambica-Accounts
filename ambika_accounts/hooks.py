@@ -114,9 +114,9 @@ app_license = "mit"
 # ---------------
 # Override standard doctype classes
 
-override_doctype_class = {
-	"Purchase Invoice": "ambika_accounts.ambika_accounts.purchase_invoice.PurchaseInvoice"
-}
+# override_doctype_class = {
+# 	"Purchase Invoice": "ambika_accounts.ambika_accounts.purchase_invoice.PurchaseInvoice"
+# }
 
 # Document Events
 # ---------------

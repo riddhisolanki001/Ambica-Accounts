@@ -14,9 +14,10 @@
  "fields": [
   {
    "fieldname": "sub_category",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Sub Category"
+   "label": "Sub Category",
+   "options": "Tax Withholding Category"
   },
   {
    "fieldname": "base_amount",
@@ -40,7 +41,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-11-30 16:27:45.817261",
+ "modified": "2023-12-22 13:22:18.351994",
  "modified_by": "Administrator",
  "module": "Ambika Accounts",
  "name": "TDS Deduction",

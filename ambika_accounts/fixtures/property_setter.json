@@ -7,13 +7,13 @@
   "doctype_or_field": "DocField",
   "field_name": "account_type",
   "is_system_generated": 0,
-  "modified": "2023-11-17 16:13:29.998916",
+  "modified": "2023-12-22 15:34:54.681173",
   "module": "Ambika Accounts",
   "name": "Account-account_type-options",
   "property": "options",
   "property_type": "Small Text",
   "row_name": null,
-  "value": "\nAccumulated Depreciation\nAsset Received But Not Billed\nBank\nCash\nChargeable\nCapital Work in Progress\nCost of Goods Sold\nDepreciation\nEquity\nExpense Account\nExpenses Included In Asset Valuation\nExpenses Included In Valuation\nFixed Asset\nIncome Account\nPayable\nReceivable\nPayable/Receivable\nRound Off\nStock\nStock Adjustment\nStock Received But Not Billed\nService Received But Not Billed\nTax\nTemporary"
+  "value": "\nAccumulated Depreciation\nAsset Received But Not Billed\nBank\nCash\nChargeable\nCapital Work in Progress\nCost of Goods Sold\nDepreciation\nEquity\nExpense Account\nExpenses Included In Asset Valuation\nExpenses Included In Valuation\nFixed Asset\nIncome Account\nPayable\nReceivable\nPayable/Receivable\nRound Off\nStock\nStock Adjustment\nStock Received But Not Billed\nService Received But Not Billed\nTax\nTemporary\nEmployee\nLibility\nSales\nPurchase\nPreliminary"
  },
  {
   "default_value": null,

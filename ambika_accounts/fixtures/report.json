@@ -199,7 +199,7 @@
  {
   "add_total_row": 0,
   "columns": [],
-  "disabled": 0,
+  "disabled": 1,
   "docstatus": 0,
   "doctype": "Report",
   "filters": [
@@ -217,7 +217,7 @@
    },
    {
     "default": null,
-    "fieldname": "To_date",
+    "fieldname": "to_date",
     "fieldtype": "Date",
     "label": "To Date",
     "mandatory": 0,
@@ -232,11 +232,11 @@
   "javascript": null,
   "json": null,
   "letter_head": null,
-  "modified": "2023-11-07 12:21:57.982337",
+  "modified": "2023-12-25 11:16:54.607824",
   "module": "Ambika Accounts",
   "name": "Export order in Hand2",
   "prepared_report": 0,
-  "query": "SELECT \n  po.supplier_name AS 'Name Of the Party',\n  po.name AS 'P.O.No',\n  po.transaction_date AS 'P.O.Date',\n  po.total AS 'P.O.Amount(FC)',\n  po.terms AS 'Terms',\n  po.conversion_rate AS 'Exchange Rate',\n  po.currency AS 'Currency',\n  po.base_net_total AS 'Amount Rs.'\nFROM `tabPurchase Order` po\nLEFT JOIN `tabPurchase Invoice` pi ON po.name = pi.custom_purchase_order\nWHERE po.currency != 'INR' \n  AND pi.name IS NULL\n  AND (\n    (%(from_date)s IS NULL AND %(to_date)s IS NULL) \n    OR (po.transaction_date BETWEEN %(from_date)s AND %(to_date)s)  \n  );\n",
+  "query": "SELECT \n  po.supplier_name AS 'Name Of the Party',\n  po.name AS 'P.O.No',\n  po.transaction_date AS 'P.O.Date',\n  po.total AS 'P.O.Amount(FC)',\n  '10.00' as 'Freight',\n  '650.00' as 'Insurence',\n  po.payment_terms_template AS 'Terms',\n  po.conversion_rate AS 'Exchange Rate',\n  po.currency AS 'Currency',\n  po.base_net_total AS 'Amount Rs.'\nFROM `tabPurchase Order` po\nLEFT JOIN `tabPurchase Invoice` pi ON po.name = pi.custom_purchase_order\nWHERE po.currency != 'INR' \n  AND pi.name IS NULL\n  AND (\n    (%(from_date)s IS NULL AND %(to_date)s IS NULL) \n    OR (po.transaction_date BETWEEN %(from_date)s AND %(to_date)s)  \n  );\n",
   "ref_doctype": "Purchase Order",
   "reference_report": null,
   "report_name": "Export order in Hand2",
@@ -424,11 +424,11 @@
   "javascript": null,
   "json": null,
   "letter_head": null,
-  "modified": "2023-11-30 18:57:28.213610",
+  "modified": "2023-12-14 11:29:17.702351",
   "module": "Ambika Accounts",
   "name": "HSN Wise Summery Detailed",
   "prepared_report": 0,
-  "query": null,
+  "query": "SELECT\n    NULL AS Type_Cd,\n    si.name AS Invoice_Number,\n    si.posting_date AS Invoice_Date,\n    siuom.gst_hsn_code AS HSN,\n    i.item_group AS Make,\n    gst_uom_map.uqc AS UQC,\n    siuom.item_name AS Item_Name,\n    siuom.qty AS Qty,\n    siuom.rate AS Rate,\n    siuom.amount AS Amount,\n    si.currency AS Currency,\n    NULL AS Bond_Rebate,\n    si.total AS Basic_Value,\n    NULL AS Other_Charge,\n    NULL AS Bill_Value,\n    si.total AS Taxable_Value,\n    \n    CASE\n        WHEN si.tax_category = 'Out-State' THEN stc.base_tax_amount\n        ELSE NULL\n    END AS IGST,\n    CASE\n        WHEN si.tax_category = 'In-State' THEN stc.base_tax_amount\n        ELSE NULL\n    END AS CGST,\n    CASE\n        WHEN si.tax_category = 'In-State' THEN stc.base_tax_amount\n        ELSE NULL\n    END AS SGST,\n    \n    CASE\n        WHEN si.disable_rounded_total = 1 THEN si.grand_total\n        ELSE si.rounded_total\n    END AS Inv_Value,\n    \n    SUM(stc.rate) AS GST_total\n    \nFROM\n    `tabSales Invoice Item` siuom\nJOIN\n    `tabSales Invoice` si ON siuom.parent = si.name\nLEFT JOIN\n    `tabSales Taxes and Charges` stc ON si.name = stc.parent\nLEFT JOIN\n    `tabItem` i ON siuom.item_code = i.item_code\nLEFT JOIN\n    (SELECT\n        parent,\n        uom,\n        gst_uom AS uqc\n    FROM\n        `tabGST UOM Map`) gst_uom_map ON siuom.uom = gst_uom_map.uom\nWHERE\n    si.docstatus = 1\n\nGROUP BY\n    si.name,\n    si.posting_date,\n    siuom.gst_hsn_code,\n    i.item_group,\n    siuom.uom,\n    siuom.item_name,\n    gst_uom_map.uqc,\n    siuom.rate,\n    siuom.amount,\n    si.currency,\n    si.total,\n    si.tax_category,\n    si.disable_rounded_total;",
   "ref_doctype": "Sales Invoice",
   "reference_report": null,
   "report_name": "HSN Wise Summery Detailed",
@@ -446,6 +446,102 @@
     "parentfield": "roles",
     "parenttype": "Report",
     "role": "Accounts User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2023-12-22 15:03:02.372103",
+  "module": "Ambika Accounts",
+  "name": "HSN Wise Summery Detailed From Purchase Invoice",
+  "prepared_report": 0,
+  "query": "SELECT\n    NULL AS Type_Cd,\n    pi.name AS Invoice_Number,\n    pi.posting_date AS Invoice_Date,\n    piuom.gst_hsn_code AS HSN,\n    i.item_group AS Make,\n    gst_uom_map.uqc AS UQC,\n    piuom.item_name AS Item_Name,\n    piuom.qty AS Qty,\n    piuom.rate AS Rate,\n    piuom.amount AS Amount,\n    pi.currency AS Currency,\n    NULL AS Bond_Rebate,\n    pi.total AS Basic_Value,\n    NULL AS Other_Charge,\n    NULL AS Bill_Value,\n    pi.total AS Taxable_Value,\n    \n    CASE\n        WHEN pi.tax_category = 'Out-State' THEN ptc.base_tax_amount\n        ELSE NULL\n    END AS IGST,\n    CASE\n        WHEN pi.tax_category = 'In-State' THEN ptc.base_tax_amount\n        ELSE NULL\n    END AS CGST,\n    CASE\n        WHEN pi.tax_category = 'In-State' THEN ptc.base_tax_amount\n        ELSE NULL\n    END AS SGST,\n    \n    CASE\n        WHEN pi.disable_rounded_total = 1 THEN pi.grand_total\n        ELSE pi.rounded_total\n    END AS Inv_Value,\n    \n    SUM(ptc.rate) AS GST_total\n    \nFROM\n    `tabPurchase Invoice Item` piuom\nJOIN\n    `tabPurchase Invoice` pi ON piuom.parent = pi.name\nLEFT JOIN\n    `tabPurchase Taxes and Charges` ptc ON pi.name = ptc.parent\nLEFT JOIN\n    `tabItem` i ON piuom.item_code = i.item_code\nLEFT JOIN\n    (SELECT\n        parent,\n        uom,\n        gst_uom AS uqc\n    FROM\n        `tabGST UOM Map`) gst_uom_map ON piuom.uom = gst_uom_map.uom\nWHERE\n    pi.docstatus = 1 AND piuom.gst_hsn_code != \"\"\nGROUP BY\n    pi.name,\n    pi.posting_date,\n    piuom.gst_hsn_code,\n    i.item_group,\n    gst_uom_map.uqc,\n    piuom.item_name,\n    piuom.qty,\n    piuom.rate,\n    piuom.amount,\n    pi.currency,\n    pi.total,\n    pi.tax_category,\n    pi.disable_rounded_total;\n",
+  "ref_doctype": "Purchase Invoice",
+  "reference_report": null,
+  "report_name": "HSN Wise Summery Detailed From Purchase Invoice",
+  "report_script": null,
+  "report_type": "Query Report",
+  "roles": [
+   {
+    "parent": "HSN Wise Summery Detailed From Purchase Invoice",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "HSN Wise Summery Detailed From Purchase Invoice",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "HSN Wise Summery Detailed From Purchase Invoice",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "HSN Wise Summery Detailed From Purchase Invoice",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2023-12-22 15:04:55.357242",
+  "module": "Ambika Accounts",
+  "name": "HSN Wise Inward Summery",
+  "prepared_report": 0,
+  "query": "SELECT\n    NULL AS Type_Cd,\n    pi.name AS Invoice_Number,\n    pi.posting_date AS Invoice_Date,\n    piuom.gst_hsn_code AS HSN,\n    i.item_group AS Make,\n    gst_uom_map.uqc AS UQC,\n    piuom.item_name AS Item_Name,\n    piuom.qty AS Qty,\n    piuom.rate AS Rate,\n    piuom.amount AS Amount,\n    pi.currency AS Currency,\n    NULL AS Bond_Rebate,\n    pi.total AS Basic_Value,\n    NULL AS Other_Charge,\n    NULL AS Bill_Value,\n    pi.total AS Taxable_Value,\n    \n    CASE\n        WHEN pi.tax_category = 'Out-State' THEN ptc.base_tax_amount\n        ELSE NULL\n    END AS IGST,\n    CASE\n        WHEN pi.tax_category = 'In-State' THEN ptc.base_tax_amount\n        ELSE NULL\n    END AS CGST,\n    CASE\n        WHEN pi.tax_category = 'In-State' THEN ptc.base_tax_amount\n        ELSE NULL\n    END AS SGST,\n    \n    CASE\n        WHEN pi.disable_rounded_total = 1 THEN pi.grand_total\n        ELSE pi.rounded_total\n    END AS Inv_Value,\n    \n    SUM(ptc.rate) AS GST_total\n    \nFROM\n    `tabPurchase Invoice Item` piuom\nJOIN\n    `tabPurchase Invoice` pi ON piuom.parent = pi.name\nLEFT JOIN\n    `tabPurchase Taxes and Charges` ptc ON pi.name = ptc.parent\nLEFT JOIN\n    `tabItem` i ON piuom.item_code = i.item_code\nLEFT JOIN\n    (SELECT\n        parent,\n        uom,\n        gst_uom AS uqc\n    FROM\n        `tabGST UOM Map`) gst_uom_map ON piuom.uom = gst_uom_map.uom\nWHERE\n    pi.docstatus = 1 AND piuom.gst_hsn_code != \"\"\nGROUP BY\n    pi.name,\n    pi.posting_date,\n    piuom.gst_hsn_code,\n    i.item_group,\n    gst_uom_map.uqc,\n    piuom.item_name,\n    piuom.qty,\n    piuom.rate,\n    piuom.amount,\n    pi.currency,\n    pi.total,\n    pi.tax_category,\n    pi.disable_rounded_total;\n",
+  "ref_doctype": "Purchase Invoice",
+  "reference_report": null,
+  "report_name": "HSN Wise Inward Summery",
+  "report_script": null,
+  "report_type": "Query Report",
+  "roles": [
+   {
+    "parent": "HSN Wise Inward Summery",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "HSN Wise Inward Summery",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "HSN Wise Inward Summery",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "HSN Wise Inward Summery",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
    }
   ]
  }
